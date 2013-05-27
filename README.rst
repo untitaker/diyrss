@@ -1,5 +1,7 @@
-[DIYRSS](http://diyrss.unterwaditzer.net)
-=========================================
+DIYRSS
+======
+
+http://diyrss.unterwaditzer.net
 
 A simple (Atom) feed generator. Enter the URL you want to scrape the HTML from,
 a CSS selector that includes all articles, one for the title inside of an
