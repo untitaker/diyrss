@@ -1,0 +1,12 @@
+Flask==0.9
+Flask-Assets==0.8
+Flask-Cache==0.12
+Jinja2==2.7
+MarkupSafe==0.18
+git+git://github.com/mitsuhiko/werkzeug.git@sprint-branch
+cssselect==0.8
+distribute==0.6.40
+jsmin==2.0.2-1
+lxml==3.2.1
+requests==1.2.2
+webassets==0.8

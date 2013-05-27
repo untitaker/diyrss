@@ -1,0 +1,37 @@
+{% extends "base.htm" %}
+{% block main %}
+<h1>Markus' silly feed generator</h1>
+<div class="row-fluid">
+    <div class="span6">
+        <form action="/feed" method="get">
+            <fieldset>
+                <label for="url">Url</label>
+                <input type="text" class="input-block-level" name="url" placeholder="http://example.com/" />
+            </fieldset>
+            <fieldset>
+                <label for="main_selector">Main selector</label>
+                <input type="text" class="input-block-level" name="main_selector" placeholder=".article" />
+                <label for="title_selector">Title selector</label>
+                <input type="text" class="input-block-level" name="title_selector" placeholder=".title" />
+                <label for="content_selector">Content selector</label>
+                <input type="text" class="input-block-level" name="content_selector" placeholder=".content" />
+            </fieldset>
+            <input type="submit" class="btn btn-large btn-block btn-primary" value="Give me a Feed" />
+        </form>
+    </div>
+    <div class="span6">
+<pre>
+&lt;div class="article"&gt;
+    &lt;h1 class="title"&gt;The Title&lt;/h1&gt;
+    &lt;p class="content"&gt;blabla&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="article"&gt;
+[...]
+</pre>
+        <ul>
+            <li>Maximal HTML size is 50K. A partial feed will be emitted without warnings when surpassing that limit.</li>
+            <li>While the content HTML will be preserved, the title will be plain text.</li>
+        </ul>
+    </div>
+{% endblock %}

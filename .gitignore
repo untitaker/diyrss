@@ -1,0 +1,3 @@
+diyrss/static/gen/*
+diyrss/static/.webassets-cache/*
+fabfile.py
