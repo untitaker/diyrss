@@ -1,4 +1,3 @@
-from .errors import RemoteOverflowError, InvalidContentTypeError
 from flask.ext.cache import Cache
 from flask.ext.assets import Environment as AssetsEnv, \
                              Bundle as AssetsBundle
