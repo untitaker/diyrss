@@ -34,9 +34,9 @@ def to_string(node, strip=False):
         else:
             return ''
     if strip:
-        return lxml.etree.tostring(node, method='text')
+        return lxml.etree.tostring(node, method='text', encoding=unicode)
     else:
-        return lxml.etree.tostring(node)
+        return lxml.etree.tostring(node, encoding=unicode)
 
 @cache.memoize(timeout=60)
 def get_feed(url, main_selector, title_selector, content_selector):

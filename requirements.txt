@@ -3,7 +3,7 @@ Flask-Assets==0.8
 Flask-Cache==0.12
 Jinja2==2.7
 MarkupSafe==0.18
-git+git://github.com/mitsuhiko/werkzeug.git@sprint-branch
+git+git://github.com/mitsuhiko/werkzeug.git
 cssselect==0.8
 distribute==0.6.40
 jsmin==2.0.2-1
