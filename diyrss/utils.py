@@ -63,9 +63,8 @@ def get_feed(url, main_selector, title_selector, content_selector):
 
 
 assets = AssetsEnv()
-js = AssetsBundle('bootstrap/js/bootstrap.min.js', 'main.js',
-                  filters='jsmin', output='gen/min.js')
+js = AssetsBundle('main.js', filters='jsmin', output='gen/min.js')
 assets.register('js_all', js)
 
-css = AssetsBundle('main.less', filters='less', output='gen/min.css')
+css = AssetsBundle('main.less', filters='cssrewrite,less,cssmin', output='gen/min.css')
 assets.register('css_all', css)
