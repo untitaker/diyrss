@@ -11,7 +11,6 @@ def mk_app(config):
     })
     app.config.update(config)
     utils.cache.init_app(app)
-    utils.assets.init_app(app)
 
     @app.route('/')
     def index():

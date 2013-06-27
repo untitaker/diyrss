@@ -1,6 +1,4 @@
 from flask.ext.cache import Cache
-from flask.ext.assets import Environment as AssetsEnv, \
-                             Bundle as AssetsBundle
 from StringIO import StringIO
 import requests
 from datetime import datetime
@@ -60,11 +58,3 @@ def get_feed(url, main_selector, title_selector, content_selector):
         )
 
     return feed.get_response()
-
-
-assets = AssetsEnv()
-js = AssetsBundle('main.js', filters='jsmin', output='gen/min.js')
-assets.register('js_all', js)
-
-css = AssetsBundle('main.less', filters='cssrewrite,less,cssmin', output='gen/min.css')
-assets.register('css_all', css)
