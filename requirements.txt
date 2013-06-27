@@ -5,7 +5,6 @@ MarkupSafe==0.18
 Werkzeug==0.9.1
 cssmin==0.1.4
 cssselect==0.8
-distribute==0.6.45
 itsdangerous==0.21
 jsmin==2.0.3
 lxml==3.2.1
