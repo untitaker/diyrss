@@ -1,5 +1,4 @@
 git+git://github.com/mitsuhiko/flask.git
-Flask-Assets==0.8
 Flask-Cache==0.12
 Jinja2==2.7
 MarkupSafe==0.18

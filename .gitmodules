@@ -1,3 +1,6 @@
 [submodule "diyrss/static/bootstrap"]
 	path = diyrss/static/bootstrap
 	url = git://github.com/twitter/bootstrap.git
+[submodule "static/bootstrap"]
+	path = static/bootstrap
+	url = git://github.com/twitter/bootstrap.git
