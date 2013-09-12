@@ -14,12 +14,7 @@ compile_css() {
     lessc --yui-compress $SOURCE/main.less
 }
 
-compile_img() {
-    cp $SOURCE/bootstrap/img/* $DEST/img/
-}
-
 compile_css > $DEST/css/main.css &
-compile_img &
 
 jobs
 wait

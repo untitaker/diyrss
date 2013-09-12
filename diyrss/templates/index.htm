@@ -1,25 +1,31 @@
 {% extends "base.htm" %}
 {% block main %}
 <h1>Markus' silly feed generator</h1>
-<div class="row-fluid">
-    <div class="span6">
+<div class="row">
+    <div class="col-md-6 well">
         <form action="/feed" method="get">
-            <fieldset>
+            <div class="form-group">
                 <label for="url">Url</label>
-                <input type="text" class="input-block-level" name="url" placeholder="http://example.com/" />
-            </fieldset>
-            <fieldset>
+                <input type="text" class="form-control" name="url" placeholder="http://example.com/" />
+            </div>
+            <div class="form-group">
                 <label for="main_selector">Main selector</label>
-                <input type="text" class="input-block-level" name="main_selector" placeholder=".article" />
+                <input type="text" class="form-control" name="main_selector" placeholder=".article" />
+            </div>
+            <div class="form-group">
                 <label for="title_selector">Title selector</label>
-                <input type="text" class="input-block-level" name="title_selector" placeholder=".title" />
+                <input type="text" class="form-control" name="title_selector" placeholder=".title" />
+            </div>
+            <div class="form-group">
                 <label for="content_selector">Content selector</label>
-                <input type="text" class="input-block-level" name="content_selector" placeholder=".content" />
-            </fieldset>
-            <input type="submit" class="btn btn-large btn-block btn-primary" value="Give me a Feed" />
+                <input type="text" class="form-control" name="content_selector" placeholder=".content" />
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-lg btn-block btn-primary" value="Give me a Feed" />
+            </div>
         </form>
     </div>
-    <div class="span6">
+    <div class="col-md-6">
 <pre>
 &lt;div class="article"&gt;
     &lt;h1 class="title"&gt;The Title&lt;/h1&gt;
