@@ -1,4 +1,4 @@
-diyrss/static/gen/*
+diyrss/static/*/*
 diyrss/static/.webassets-cache/*
 fabfile.py
 *.pyc
