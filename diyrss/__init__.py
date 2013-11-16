@@ -19,10 +19,13 @@ def mk_app(config):
     @app.route('/feed', methods=['GET'])
     def get_feed():
         kwargs = dict((k, flask.request.args[k]) for k in
-                      ('url', 'main_selector', 'title_selector', 'content_selector'))
+                      ('url', 'main_selector', 'title_selector',
+                       'content_selector'))
 
         if not all(kwargs.values()):
                 return error('You didn\'t fill out all fields.'), 400
+
+        kwargs['skip_broken'] = (flask.request.args.get('skip_broken', 'false').lower() == 'true')
 
         return utils.get_feed(**kwargs)
 
@@ -42,7 +45,11 @@ def mk_app(config):
     def bad_gateway(e):
         return error('The remote server couldn\'t be reached.'), 502
 
-    def error(msg):
-        return flask.render_template('error.htm', msg=msg)
+    @app.errorhandler(errors.NullSelectorError)
+    def nullselector(e):
+        return flask.render_template('nullselectorerror.htm', e=e)
+
+    def error(msg, **kw):
+        return flask.render_template('error.htm', msg=msg, **kw)
 
     return app

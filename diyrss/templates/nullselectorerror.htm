@@ -1,0 +1,6 @@
+{% extends "base.htm" %}
+{% block main %}
+<p class="alert alert-error">{{ e.msg }}:</p>
+<pre>{{ e.title_or_content }}</pre>
+<a href="{{ request.url }}&skip_broken=true">Maybe try with skipping these items?</a>
+{% endblock %}
