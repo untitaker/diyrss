@@ -14,6 +14,6 @@ Example for GitHub Gist comments::
     Title selector: .comment-header-author
     Content selector: .comment-content
 
-Only the content's HTML will be preserved. If you want RSS, you can suck it.
+Only the content's HTML will be preserved.
 
 Released under public domain.
