@@ -4,7 +4,6 @@ import requests
 from datetime import datetime
 from werkzeug.contrib.atom import AtomFeed
 from cssselect import GenericTranslator
-import diyrss.errors as errors
 import lxml.html
 import lxml.etree
 
@@ -38,7 +37,7 @@ def to_string(node, strip=False):
         return lxml.etree.tostring(node, encoding=unicode)
 
 @cache.memoize(timeout=60)
-def get_feed(url, main_selector, title_selector, content_selector, skip_broken=False):
+def get_feed(url, main_selector, title_selector, content_selector):
     site = fetch_site(url)
 
     title = to_string(extract_from_tree(site, 'title'), strip=True)
@@ -48,14 +47,6 @@ def get_feed(url, main_selector, title_selector, content_selector, skip_broken=F
     for i, article in enumerate(extract_from_tree(site, main_selector)):
         title = to_string(extract_from_tree(article, title_selector), strip=True)
         content = to_string(extract_from_tree(article, content_selector))
-        try:
-            if not title or not content:
-                raise errors.NullSelectorError(title or None, content or None)
-        except errors.NullSelectorError:
-            if not skip_broken:
-                raise
-            continue
-
         feed.add(
             title,
             content,

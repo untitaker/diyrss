@@ -1,10 +1,4 @@
 {% extends "base.htm" %}
-{% if show_skip_broken_link is not defined -%}
-    {%- set show_skip_broken_link = False -%}
-{%- endif %}
 {% block main %}
 <p class="alert alert-error">{{ msg }}</p>
-{% if show_skip_broken_link -%}
-<a href="{{ request.url }}&skip_broken=true">Maybe try with skipping these items?</a>
-{%- endif %}
 {% endblock %}
