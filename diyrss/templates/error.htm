@@ -1,4 +1,10 @@
 {% extends "base.htm" %}
 {% block main %}
-<p class="alert alert-error">{{ msg }}</p>
+<p class="alert alert-danger">{{ msg }}
+{%- if code -%}
+:</p>
+<pre>{{ code }}</pre>
+{%- else -%}
+.</p>
+{%- endif %}
 {% endblock %}

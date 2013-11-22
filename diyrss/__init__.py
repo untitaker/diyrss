@@ -22,27 +22,31 @@ def mk_app(config):
                       ('url', 'main_selector', 'title_selector', 'content_selector'))
 
         if not all(kwargs.values()):
-                return error('You didn\'t fill out all fields.'), 400
+                return error('You didn\'t fill out all fields'), 400
 
         return utils.get_feed(**kwargs)
 
     @app.errorhandler(errors.SelectorError)
     def css_selector_error(e):
-        return error('Invalid CSS Selector.'), 400
+        return error('Invalid CSS Selector'), 400
 
     @app.errorhandler(errors.URLParseError)
     def url_error(e):
-        return error('Invalid URL.'), 400
+        return error('Invalid URL'), 400
 
     @app.errorhandler(500)
     def generic_error(e):
-        return error('Unknown error.'), 500
+        return error('Unknown error'), 500
 
     @app.errorhandler(errors.RemoteError)
     def bad_gateway(e):
-        return error('The remote server couldn\'t be reached.'), 502
+        return error('The remote server couldn\'t be reached'), 502
 
-    def error(msg):
-        return flask.render_template('error.htm', msg=msg)
+    @app.errorhandler(errors.BrokenItemError)
+    def brokenitem(e):
+        return error(e.msg, e.item), 502
+
+    def error(msg, code=None):
+        return flask.render_template('error.htm', msg=msg, code=code)
 
     return app

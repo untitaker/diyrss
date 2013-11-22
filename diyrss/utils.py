@@ -6,6 +6,7 @@ from werkzeug.contrib.atom import AtomFeed
 from cssselect import GenericTranslator
 import lxml.html
 import lxml.etree
+import diyrss.errors as errors
 
 cache = Cache()
 
@@ -40,13 +41,20 @@ def to_string(node, strip=False):
 def get_feed(url, main_selector, title_selector, content_selector):
     site = fetch_site(url)
 
-    title = to_string(extract_from_tree(site, 'title'), strip=True)
-    feed = AtomFeed(title, url=url, subtitle=title, author='Unknown')
+    title = to_string(extract_from_tree(site, 'title'),
+                      strip=True) or u'[unknown]'
+    feed = AtomFeed(title, url=url, subtitle=title, author=u'[unknown]')
 
     site.make_links_absolute(url)
-    for i, article in enumerate(extract_from_tree(site, main_selector)):
-        title = to_string(extract_from_tree(article, title_selector), strip=True)
-        content = to_string(extract_from_tree(article, content_selector))
+    for i, item in enumerate(extract_from_tree(site, main_selector)):
+        title = to_string(extract_from_tree(item, title_selector), strip=True)
+        content = to_string(extract_from_tree(item, content_selector))
+        if not title or not content:
+            raise errors.BrokenItemError(
+                to_string(item, strip=False),
+                title,
+                content
+            )
         feed.add(
             title,
             content,
