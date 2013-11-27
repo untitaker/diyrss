@@ -16,7 +16,10 @@ max_feed_size = 50 * 1024
 @cache.memoize(timeout=60*5)
 def _fetch_site(url):
     r = requests.get(url)
-    return r.iter_content(max_feed_size).next()
+    try:
+        return r.iter_content(max_feed_size).next()
+    except StopIteration:
+        raise errors.RemoteError()
 
 def fetch_site(url):
     tree = lxml.html.fromstring(_fetch_site(url))
