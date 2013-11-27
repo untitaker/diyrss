@@ -24,6 +24,7 @@ def mk_app(config):
         if not all(kwargs.values()):
                 return error('You didn\'t fill out all fields'), 400
 
+        flask.g.feed_info = kwargs
         return utils.get_feed(**kwargs)
 
     @app.errorhandler(errors.SelectorError)
@@ -45,6 +46,10 @@ def mk_app(config):
     @app.errorhandler(errors.BrokenItemError)
     def brokenitem(e):
         return error(e.msg, e.item), 502
+
+    @app.errorhandler(errors.LxmlError)
+    def lxmlerror(e):
+        return error('Error while parsing the HTML/XML'), 502
 
     def error(msg, code=None):
         return flask.render_template('error.htm', msg=msg, code=code)
