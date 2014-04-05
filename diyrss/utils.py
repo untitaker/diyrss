@@ -1,5 +1,4 @@
 from flask.ext.cache import Cache
-from StringIO import StringIO
 import requests
 from datetime import datetime
 from werkzeug.contrib.atom import AtomFeed
@@ -21,13 +20,16 @@ def _fetch_site(url):
     except StopIteration:
         raise errors.RemoteError()
 
+
 def fetch_site(url):
     tree = lxml.html.fromstring(_fetch_site(url))
     return tree
 
+
 def extract_from_tree(tree, selector):
     expression = GenericTranslator().css_to_xpath(selector)
     return tree.xpath(expression)
+
 
 def to_string(node, strip=False):
     if type(node) is list:
@@ -40,6 +42,22 @@ def to_string(node, strip=False):
     else:
         return lxml.etree.tostring(node, encoding=unicode)
 
+
+def extract_link(headline):
+    if isinstance(headline, list):
+        if not headline:
+            return None
+        headline = headline[0]
+
+    def inner():
+        yield headline.attrib.get('href', '').strip()
+        for a in extract_from_tree(headline, 'a'):
+            yield a.attrib.get('href', '').strip()
+        yield None
+
+    return filter(bool, inner())
+
+
 @cache.memoize(timeout=60)
 def get_feed(url, main_selector, title_selector, content_selector):
     site = fetch_site(url)
@@ -50,7 +68,8 @@ def get_feed(url, main_selector, title_selector, content_selector):
 
     site.make_links_absolute(url)
     for i, item in enumerate(extract_from_tree(site, main_selector)):
-        title = to_string(extract_from_tree(item, title_selector), strip=True)
+        title_element = extract_from_tree(item, title_selector)
+        title = to_string(title_element, strip=True)
         content = to_string(extract_from_tree(item, content_selector))
         if not title or not content:
             raise errors.BrokenItemError(
@@ -62,7 +81,7 @@ def get_feed(url, main_selector, title_selector, content_selector):
             title,
             content,
             content_type='html',
-            url=url,
+            url=extract_link(title_element) or url,
             id=url + str(i),
             updated=datetime.strptime('20121217', '%Y%m%d'),
             published=datetime.strptime('20121217', '%Y%m%d')

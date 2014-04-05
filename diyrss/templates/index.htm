@@ -36,7 +36,13 @@
 [...]
 </pre>
         <ul>
-            <li>Maximal HTML size is 50K. A partial feed will be emitted without warnings when surpassing that limit.</li>
+            <li>Maximal HTML size is 50K. A partial feed will be emitted
+            without warnings when surpassing that limit.</li>
+
+            <li>The article link will be extracted from the <code>href</code>
+            attribute of the title element, or from the first
+            <code>&lt;a&gt;</code> element encountered in the title. If none
+            can be found, the given URL will be used.</li>
             <li>While the content HTML will be preserved, the title will be plain text.</li>
             <li><a href="https://github.com/untitaker/diyrss/">Source code is on GitHub</a></li>
         </ul>
