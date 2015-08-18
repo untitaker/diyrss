@@ -6,14 +6,26 @@ from cssselect import GenericTranslator
 import lxml.html
 import lxml.etree
 import diyrss.errors as errors
+from urlparse import urlparse
+import socket
 
 cache = Cache()
 
 max_feed_size = 50 * 1024
 
+def _validate_url(url):
+    host = urlparse(url).hostname
+    try:
+        address, port = socket.getaddrinfo(host, None)[0][-1][:2]
+        if address in ('127.0.0.1', '::1'):
+            raise ValueError()
+    except (ValueError, TypeError, socket.error):
+        raise errors.URLParseError(url)
+
 
 @cache.memoize(timeout=60*5)
 def _fetch_site(url):
+    _validate_url(url)
     r = requests.get(url)
     try:
         return r.iter_content(max_feed_size).next()
