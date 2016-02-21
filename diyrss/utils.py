@@ -67,7 +67,7 @@ def extract_link(headline):
             yield a.attrib.get('href', '').strip()
         yield None
 
-    return filter(bool, inner())
+    return next(iter(filter(bool, inner())))
 
 
 @cache.memoize(timeout=60)
