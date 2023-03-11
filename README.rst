@@ -1,6 +1,8 @@
 DIYRSS
 ======
 
+**unmaintained**
+
 http://diyrss.unterwaditzer.net
 
 A simple (Atom) feed generator. Enter the URL you want to scrape the HTML from,
